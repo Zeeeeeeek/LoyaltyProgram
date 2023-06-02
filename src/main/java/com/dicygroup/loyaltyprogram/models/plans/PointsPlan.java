@@ -1,12 +1,8 @@
 package com.dicygroup.loyaltyprogram.models.plans;
 
-import lombok.Getter;
+public class PointsPlan extends AbstractPlan {
 
-public class PointsPlan implements Plan {
-
-    @Getter
-    private Long id;
-
-    @Getter
-    private String owner;
+    public PointsPlan(Long id, String owner) {
+        super(id, owner);
+    }
 }
