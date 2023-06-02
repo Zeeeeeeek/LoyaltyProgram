@@ -15,8 +15,8 @@ public class PlanManager {
         return abstractPlanRegistry.save(plan);
     }
 
-//    public List<Plan> getPlanList(){
-//
-//    }
+    public Iterable<AbstractPlan> getPlanList(){
+        return abstractPlanRegistry.findAll();
+    }
 
 }
