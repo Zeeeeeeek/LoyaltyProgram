@@ -1,4 +1,4 @@
-package com.dicygroup.loyaltyprogram.models;
+package com.dicygroup.loyaltyprogram.models.plans;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

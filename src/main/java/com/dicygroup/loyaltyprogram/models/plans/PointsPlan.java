@@ -1,8 +1,9 @@
-package com.dicygroup.loyaltyprogram.models;
+package com.dicygroup.loyaltyprogram.models.plans;
 
 import lombok.Getter;
 
-public class LevelsPlan implements Plan {
+public class PointsPlan implements Plan {
+
     @Getter
     private Long id;
 
