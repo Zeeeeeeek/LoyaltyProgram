@@ -1,5 +1,7 @@
 package com.dicygroup.loyaltyprogram.models.plans;
 
+import com.dicygroup.loyaltyprogram.models.plans.rules.PointRule;
+import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -10,7 +12,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public interface Plan {
 
-    String getOwner();
+    Shopkeeper getOwner();
 
     Long getId();
+
+    PointRule getPointRule();
 }

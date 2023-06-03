@@ -1,5 +1,6 @@
 package com.dicygroup.loyaltyprogram.models.plans;
 
+import com.dicygroup.loyaltyprogram.models.plans.rules.PointRule;
 import jakarta.persistence.Entity;
 import lombok.NoArgsConstructor;
 
@@ -7,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PointsPlan extends AbstractPlan {
 
-    public PointsPlan(Long id, String owner) {
-        super(id, owner);
+    public PointsPlan(PointRule pointRule) {
+        super(pointRule);
     }
 }
