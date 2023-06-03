@@ -22,4 +22,9 @@ public class Shopkeeper {
 
     @Getter
     private String surname;
+
+    public Shopkeeper(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
 }

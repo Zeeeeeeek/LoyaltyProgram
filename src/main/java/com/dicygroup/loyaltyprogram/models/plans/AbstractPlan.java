@@ -30,7 +30,7 @@ public abstract class AbstractPlan implements Plan {
 
     @Getter
     @Setter
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)//temp
     private Shopkeeper owner;
 
     @Getter
