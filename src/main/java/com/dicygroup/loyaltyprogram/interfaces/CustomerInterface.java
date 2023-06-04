@@ -1,6 +1,7 @@
 package com.dicygroup.loyaltyprogram.interfaces;
 
 import com.dicygroup.loyaltyprogram.managers.PlanManager;
+import com.dicygroup.loyaltyprogram.managers.SubscriptionManager;
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.dicygroup.loyaltyprogram.models.plans.Plan;
 import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CustomerInterface {
     private final PlanManager planManager;
+    private final SubscriptionManager subscriptionManager;
 
     @GetMapping("plans")
     public Iterable<AbstractPlan> list() {
@@ -21,7 +23,6 @@ public class CustomerInterface {
     // TODO: This method should get the customer Id from the one logged in
     @PostMapping("{customerId}/plans/{planId}")
     public boolean subscribePlan(@PathVariable Long customerId, @PathVariable Long planId) {
-        // Implement this
-        return true;
+        return subscriptionManager.subscribeCustomerToPlan(customerId, planId);
     }
 }
