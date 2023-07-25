@@ -4,6 +4,8 @@ import com.dicygroup.loyaltyprogram.managers.PlanManager;
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.dicygroup.loyaltyprogram.models.plans.Plan;
 import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
+import com.dicygroup.loyaltyprogram.registries.ShopkeeperRegistry;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/shopkeepers/")
@@ -31,6 +35,11 @@ public class ShopkeeperInterface {
     public Plan create(@RequestBody AbstractPlan plan, @PathVariable Long ownerId) {
        plan.setOwner(getShopKeeperFromId(ownerId));
        return planManager.savePlan(plan);
+    }
+
+    @GetMapping("open-to-coalition")
+    public List<AbstractPlan> getPlansOpenToCoalition() {
+        return planManager.getPlansOpenToCoalition();
     }
 
     private Shopkeeper getShopKeeperFromId(Long id) {
