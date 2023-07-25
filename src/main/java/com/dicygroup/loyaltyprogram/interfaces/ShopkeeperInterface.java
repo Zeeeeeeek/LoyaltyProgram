@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShopkeeperInterface {
 
     private final PlanManager planManager;
+    private final ShopkeeperRegistry shopkeeperRegistry;
 
     @GetMapping("plans")
     public Iterable<AbstractPlan> list() {
@@ -33,6 +34,8 @@ public class ShopkeeperInterface {
     }
 
     private Shopkeeper getShopKeeperFromId(Long id) {
-        return new Shopkeeper("pippo", "pluto"); //temporary method
+        return shopkeeperRegistry
+                .findById(id)
+                .orElseThrow(EntityNotFoundException::new);
     }
 }
