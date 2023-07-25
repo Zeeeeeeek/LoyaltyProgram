@@ -1,11 +1,10 @@
 package com.dicygroup.loyaltyprogram.interfaces;
 
 import com.dicygroup.loyaltyprogram.managers.PlanManager;
+import com.dicygroup.loyaltyprogram.managers.ShopkeeperManager;
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.dicygroup.loyaltyprogram.models.plans.Plan;
 import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
-import com.dicygroup.loyaltyprogram.registries.ShopkeeperRegistry;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,7 @@ import java.util.List;
 public class ShopkeeperInterface {
 
     private final PlanManager planManager;
-    private final ShopkeeperRegistry shopkeeperRegistry;
+    private final ShopkeeperManager shopkeeperManager;
 
     @GetMapping("plans")
     public Iterable<AbstractPlan> list() {
@@ -33,8 +32,7 @@ public class ShopkeeperInterface {
 
     @PostMapping("{ownerId}/plans")
     public Plan create(@RequestBody AbstractPlan plan, @PathVariable Long ownerId) {
-       plan.setOwner(getShopKeeperFromId(ownerId));
-       return planManager.savePlan(plan);
+       return planManager.createAndSavePlan(plan, shopkeeperManager.getShopKeeperFromId(ownerId));
     }
 
     @GetMapping("open-to-coalition")
@@ -42,9 +40,9 @@ public class ShopkeeperInterface {
         return planManager.getPlansOpenToCoalition();
     }
 
-    private Shopkeeper getShopKeeperFromId(Long id) {
-        return shopkeeperRegistry
-                .findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+    @PostMapping("{ownerId}/coalitions")
+    public Plan addCoalition(@RequestBody Long planId, @PathVariable Long ownerId) {
+        return planManager.addCoalition(planId, shopkeeperManager.getShopKeeperFromId(ownerId));
     }
+
 }
