@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PointsPlan extends AbstractPlan {
 
-    public PointsPlan(PointRule pointRule) {
-        super(pointRule);
+    public PointsPlan(PointRule pointRule, boolean isOpenToCoalition) {
+        super(pointRule, isOpenToCoalition);
     }
 }

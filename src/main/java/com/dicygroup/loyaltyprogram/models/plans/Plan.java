@@ -17,4 +17,6 @@ public interface Plan {
     Long getId();
 
     PointRule getPointRule();
+
+    boolean isOpenToCoalition();
 }

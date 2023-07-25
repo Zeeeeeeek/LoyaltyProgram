@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,9 +17,8 @@ import lombok.ToString;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
+@NoArgsConstructor
 public abstract class AbstractPlan implements Plan {
 
     @Id
@@ -34,10 +32,19 @@ public abstract class AbstractPlan implements Plan {
     private Shopkeeper owner;
 
     @Getter
+    @Setter
     @OneToOne(cascade = CascadeType.ALL)
     private PointRule pointRule;
 
-    protected AbstractPlan(PointRule pointRule) {
+    @Getter
+    private boolean isOpenToCoalition;
+
+    protected AbstractPlan(PointRule pointRule, boolean isOpenToCoalition) {
+        this.isOpenToCoalition = isOpenToCoalition;
         this.pointRule = pointRule;
+    }
+
+    public void setIsOpenToCoalition(boolean isOpenToCoalition) {
+        this.isOpenToCoalition = isOpenToCoalition;
     }
 }
