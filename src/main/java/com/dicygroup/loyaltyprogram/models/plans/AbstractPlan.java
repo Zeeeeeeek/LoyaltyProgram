@@ -18,6 +18,8 @@ import lombok.ToString;
 
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @ToString
@@ -26,7 +28,6 @@ public abstract class AbstractPlan implements Plan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter
     private Long id;
 
     @Getter
@@ -64,5 +65,10 @@ public abstract class AbstractPlan implements Plan {
     @Override
     public void setOpenToCoalition(boolean openToCoalition) {
         this.isOpenToCoalition = openToCoalition;
+    }
+
+    @Override
+    public void setRule(PointRule rule) {
+        this.pointRule = rule;
     }
 }

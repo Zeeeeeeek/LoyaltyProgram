@@ -23,5 +23,9 @@ public interface Plan {
     void addCoalition(Shopkeeper shopkeeper);
 
     void setOpenToCoalition(boolean openToCoalition);
+
+    void setRule(PointRule rule);
+
+    void setOwner(Shopkeeper owner);
     
 }
