@@ -2,6 +2,7 @@ package com.dicygroup.loyaltyprogram.models.plans.catalogues;
 
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.dicygroup.loyaltyprogram.models.plans.Plan;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class Catalogue {
     @OneToOne
     @Getter
     @Setter
+    @JsonIgnore
     private AbstractPlan plan;
 
     public void addPrize(Prize prize) {

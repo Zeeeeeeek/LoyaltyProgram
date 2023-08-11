@@ -26,4 +26,8 @@ public class CatalogueManager {
             return false;
         }
     }
+
+    public Catalogue getCatalogue(Long planId) {
+        return catalogueRegistry.findByPlanId(planId);
+    }
 }

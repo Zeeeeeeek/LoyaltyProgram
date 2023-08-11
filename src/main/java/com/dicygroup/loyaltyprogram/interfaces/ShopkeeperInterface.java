@@ -51,6 +51,11 @@ public class ShopkeeperInterface {
         return catalogueManager.createCatalogue(planId, catalogue);
     }
 
+    @GetMapping("{ownerId}/plans/{planId}/catalogue")
+    public Catalogue getCatalogue(@PathVariable Long planId, @PathVariable Long ownerId) {
+        return catalogueManager.getCatalogue(planId);
+    }
+
     @PutMapping("{ownerId}/plans/{planId}")
     public Plan modify(@PathVariable Long planId, @RequestBody AbstractPlan plan, @PathVariable Long ownerId) {
         // TODO Nel diagramma di sequenza la chiamata la fa con l'ID dell'esercente e non con l'esercente direttamente
