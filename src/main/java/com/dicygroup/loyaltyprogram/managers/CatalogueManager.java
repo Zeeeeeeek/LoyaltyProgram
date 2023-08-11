@@ -19,6 +19,8 @@ public class CatalogueManager {
         AbstractPlan plan = planManager.getPlanById(planId);
         catalogue.setPlan(plan);
         try {
+            if(catalogueRegistry.findByPlanId(planId) != null)
+                catalogueRegistry.delete(catalogueRegistry.findByPlanId(planId));
             catalogueRegistry.save(catalogue);
             return true;
         } catch (Exception e) {
