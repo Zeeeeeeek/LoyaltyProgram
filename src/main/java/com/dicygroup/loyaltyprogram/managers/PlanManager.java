@@ -68,4 +68,9 @@ public class PlanManager {
         planToModify.setPointRule(newDetailsPlan.getPointRule());
         return planToModify;
     }
+
+    public List<AbstractPlan> getOwnedPlans(Shopkeeper shopKeeperId) {
+        return abstractPlanRegistry
+                .findByOwnerId(shopKeeperId);
+    }
 }

@@ -4,8 +4,10 @@ import com.dicygroup.loyaltyprogram.managers.PlanManager;
 import com.dicygroup.loyaltyprogram.managers.ShopkeeperManager;
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.dicygroup.loyaltyprogram.models.plans.Plan;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +29,18 @@ public class ShopkeeperInterface {
     @PostMapping("{ownerId}/plans")
     public Plan create(@RequestBody AbstractPlan plan, @PathVariable Long ownerId) {
        return planManager.createAndSavePlan(plan, shopkeeperManager.getShopKeeperFromId(ownerId));
+    }
+
+    @GetMapping("{ownerId}/owned-plans")
+    public ResponseEntity<List<AbstractPlan>> getOwnedPlans(@PathVariable Long ownerId) {
+        try {
+            return ResponseEntity.ok(planManager.getOwnedPlans(shopkeeperManager.getShopKeeperFromId(ownerId)));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            log.error("Error while getting owned plans", e);
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @PutMapping("{ownerId}/plans/{planId}")
