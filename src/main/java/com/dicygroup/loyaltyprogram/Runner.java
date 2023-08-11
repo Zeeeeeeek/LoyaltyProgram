@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
+/**
+ *
+ * This class is used to populate the database with some default entities
+ */
 public class Runner implements CommandLineRunner {
 
     private final ShopkeeperRegistry shopkeeperRegistry;
@@ -21,8 +25,5 @@ public class Runner implements CommandLineRunner {
         shopkeeperRegistry.save(
                 new Shopkeeper("paperino", "paperone")
         );
-        log.info("Created " + shopkeeperRegistry.count() + " shopkeepers");
-
-        shopkeeperRegistry.findAll().forEach(shopkeeper -> log.info(shopkeeper.getName()));
     }
 }
