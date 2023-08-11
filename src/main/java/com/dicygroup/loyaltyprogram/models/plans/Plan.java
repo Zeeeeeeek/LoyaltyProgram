@@ -5,6 +5,8 @@ import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import com.dicygroup.loyaltyprogram.models.catalog.Catalog;
+
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = PointsPlan.class, name = "points"),
@@ -21,6 +23,8 @@ public interface Plan {
     boolean isOpenToCoalition();
 
     void addCoalition(Shopkeeper shopkeeper);
+
+    Catalog getCatalog();
 
     void setOpenToCoalition(boolean openToCoalition);
     
