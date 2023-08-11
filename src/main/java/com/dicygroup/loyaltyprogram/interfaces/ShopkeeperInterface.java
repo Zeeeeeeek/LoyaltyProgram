@@ -4,6 +4,7 @@ import com.dicygroup.loyaltyprogram.managers.PlanManager;
 import com.dicygroup.loyaltyprogram.managers.ShopkeeperManager;
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.dicygroup.loyaltyprogram.models.plans.Plan;
+import com.dicygroup.loyaltyprogram.models.plans.catalogues.Catalogue;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +42,14 @@ public class ShopkeeperInterface {
             log.error("Error while getting owned plans", e);
             return ResponseEntity.internalServerError().build();
         }
+    }
+
+    @PostMapping("{ownerId}/plans/{planId}/catalogue")
+    public boolean addCatalogue(@PathVariable Long planId, @PathVariable Long ownerId, @RequestBody Catalogue catalogue) {
+        log.info(
+                catalogue.getName() + " " + catalogue.getPrizes().size()
+        );
+        return true;
     }
 
     @PutMapping("{ownerId}/plans/{planId}")

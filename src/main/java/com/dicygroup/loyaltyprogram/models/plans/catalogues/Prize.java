@@ -1,13 +1,18 @@
 package com.dicygroup.loyaltyprogram.models.plans.catalogues;
 
+import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.Cost;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Entity
+@NoArgsConstructor
 public class Prize {
 
     @Id
@@ -17,4 +22,14 @@ public class Prize {
     @Getter
     @Setter
     private String name;
+
+    @Getter
+    @Setter
+    @OneToOne
+    private Cost cost;
+
+    public Prize(String name, Cost cost) {
+        this.name = name;
+        this.cost = cost;
+    }
 }
