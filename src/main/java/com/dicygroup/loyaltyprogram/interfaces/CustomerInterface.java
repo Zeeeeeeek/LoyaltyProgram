@@ -4,10 +4,12 @@ import com.dicygroup.loyaltyprogram.managers.PlanManager;
 import com.dicygroup.loyaltyprogram.managers.SubscriptionManager;
 import com.dicygroup.loyaltyprogram.models.customer.Customer;
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
-import com.dicygroup.loyaltyprogram.models.plans.Plan;
-import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/customers/")
