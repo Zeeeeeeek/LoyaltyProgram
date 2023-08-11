@@ -3,7 +3,7 @@ package com.dicygroup.loyaltyprogram.models.plans.catalogues.costs;
 import lombok.Getter;
 
 @Getter
-public class LevelCost extends Cost{
+public class LevelCost extends Cost {
 
     private int requiredLevel;
 
