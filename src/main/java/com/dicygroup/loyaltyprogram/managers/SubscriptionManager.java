@@ -10,6 +10,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SubscriptionManager {
+    private final PlanManager planManager;
+
     // TODO: Change with a collection of Subscriptions when "Subscription<Customer, Plan" Entity will be created
     private final List<Pair<Customer, Long>> subscriptions;
 
@@ -20,6 +22,10 @@ public class SubscriptionManager {
     // TODO: Change with a collection of Subscriptions when "Subscription" Entity will be created
     private Customer subscribeCustomer(Customer customer, Long planId) {
         return subscriptions.add(new Pair(customer, planId)) ? customer : null;
+    }
+
+    public Boolean subtractPoints(Long customerId, Long planId, Long prizeId) {
+        return true;
     }
 }
 

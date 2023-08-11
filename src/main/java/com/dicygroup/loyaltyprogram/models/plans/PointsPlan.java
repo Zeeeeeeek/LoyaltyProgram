@@ -4,6 +4,8 @@ import com.dicygroup.loyaltyprogram.models.plans.rules.PointRule;
 import jakarta.persistence.Entity;
 import lombok.NoArgsConstructor;
 
+import com.dicygroup.loyaltyprogram.models.catalog.Catalog;
+
 @Entity
 @NoArgsConstructor
 public class PointsPlan extends AbstractPlan {

@@ -8,6 +8,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import com.dicygroup.loyaltyprogram.models.catalog.Catalog;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
@@ -48,6 +49,9 @@ public class PlanManager {
         plan.setOwner(shopkeeper);
         return savePlan(plan);
     }
+
+    public Catalog getCatalog(Long planId) {
+        return getPlanById(planId).getCatalog();
 
     public Plan modifyAndSavePlan(Long planId, AbstractPlan plan, Shopkeeper shopKeeperFromId) {
         AbstractPlan planToModify = getPlanById(planId);
