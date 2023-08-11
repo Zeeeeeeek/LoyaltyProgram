@@ -52,6 +52,7 @@ public class PlanManager {
 
     public Catalog getCatalog(Long planId) {
         return getPlanById(planId).getCatalog();
+    }
 
     public Plan modifyAndSavePlan(Long planId, AbstractPlan plan, Shopkeeper shopKeeperFromId) {
         AbstractPlan planToModify = getPlanById(planId);
