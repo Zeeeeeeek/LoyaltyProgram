@@ -1,5 +1,6 @@
 package com.dicygroup.loyaltyprogram.interfaces;
 
+import com.dicygroup.loyaltyprogram.managers.CatalogueManager;
 import com.dicygroup.loyaltyprogram.managers.PlanManager;
 import com.dicygroup.loyaltyprogram.managers.ShopkeeperManager;
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
@@ -21,6 +22,7 @@ public class ShopkeeperInterface {
 
     private final PlanManager planManager;
     private final ShopkeeperManager shopkeeperManager;
+    private final CatalogueManager catalogueManager;
 
     @GetMapping("plans")
     public Iterable<AbstractPlan> list() {
@@ -46,10 +48,7 @@ public class ShopkeeperInterface {
 
     @PostMapping("{ownerId}/plans/{planId}/catalogue")
     public boolean addCatalogue(@PathVariable Long planId, @PathVariable Long ownerId, @RequestBody Catalogue catalogue) {
-        log.info(
-                catalogue.getName() + " " + catalogue.getPrizes().size()
-        );
-        return true;
+        return catalogueManager.createCatalogue(planId, catalogue);
     }
 
     @PutMapping("{ownerId}/plans/{planId}")

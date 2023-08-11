@@ -1,11 +1,7 @@
 package com.dicygroup.loyaltyprogram.models.plans.catalogues;
 
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.Cost;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +21,7 @@ public class Prize {
 
     @Getter
     @Setter
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Cost cost;
 
     public Prize(String name, Cost cost) {
