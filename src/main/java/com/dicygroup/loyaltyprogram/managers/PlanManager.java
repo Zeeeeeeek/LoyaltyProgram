@@ -48,4 +48,24 @@ public class PlanManager {
         plan.setOwner(shopkeeper);
         return savePlan(plan);
     }
+
+    public Plan modifyAndSavePlan(Long planId, AbstractPlan plan, Shopkeeper shopKeeperFromId) {
+        AbstractPlan planToModify = getPlanById(planId);
+
+        if (planToModify.getOwner() != shopKeeperFromId)
+            throw new IllegalArgumentException("The plan you are trying to modify is not yours");
+
+        modifyPlan(planToModify, plan);
+
+        // TODO Questo metodo salva tutto?
+        return savePlan(planToModify);
+    }
+
+    private Plan modifyPlan(AbstractPlan planToModify, AbstractPlan newDetailsPlan) {
+        planToModify.setCoalition(newDetailsPlan.getCoalition());
+        planToModify.setOwner(newDetailsPlan.getOwner());
+        planToModify.setOpenToCoalition(newDetailsPlan.isOpenToCoalition());
+        planToModify.setPointRule(newDetailsPlan.getPointRule());
+        return planToModify;
+    }
 }
