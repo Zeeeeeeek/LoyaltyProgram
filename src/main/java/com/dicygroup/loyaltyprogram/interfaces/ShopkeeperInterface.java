@@ -4,7 +4,6 @@ import com.dicygroup.loyaltyprogram.managers.PlanManager;
 import com.dicygroup.loyaltyprogram.managers.ShopkeeperManager;
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.dicygroup.loyaltyprogram.models.plans.Plan;
-import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -41,9 +40,9 @@ public class ShopkeeperInterface {
         return planManager.getPlansOpenToCoalition();
     }
 
-    @PostMapping("{ownerId}/coalitions")
-    public Plan addCoalition(@RequestBody Long planId, @PathVariable Long ownerId) {
-        return planManager.addCoalition(planId, shopkeeperManager.getShopKeeperFromId(ownerId));
+    @PostMapping("{shopkeeperId}/coalitions")
+    public Plan addCoalition(@RequestBody Long planId, @PathVariable Long shopkeeperId) {
+        return planManager.addCoalition(planId, shopkeeperManager.getShopKeeperFromId(shopkeeperId));
     }
 
 }
