@@ -25,4 +25,7 @@ public interface Plan {
     void addCoalition(Shopkeeper shopkeeper);
 
     Catalog getCatalog();
+
+    void setOpenToCoalition(boolean openToCoalition);
+    
 }

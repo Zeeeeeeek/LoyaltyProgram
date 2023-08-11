@@ -67,4 +67,9 @@ public abstract class AbstractPlan implements Plan {
     public void addCoalition(Shopkeeper shopkeeper) {
         coalition.add(shopkeeper);
     }
+
+    @Override
+    public void setOpenToCoalition(boolean openToCoalition) {
+        this.isOpenToCoalition = openToCoalition;
+    }
 }

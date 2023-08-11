@@ -7,12 +7,7 @@ import com.dicygroup.loyaltyprogram.models.plans.Plan;
 import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +28,12 @@ public class ShopkeeperInterface {
     @PostMapping("{ownerId}/plans")
     public Plan create(@RequestBody AbstractPlan plan, @PathVariable Long ownerId) {
        return planManager.createAndSavePlan(plan, shopkeeperManager.getShopKeeperFromId(ownerId));
+    }
+
+    @PutMapping("{ownerId}/plans/{planId}")
+    public Plan modify(@PathVariable Long planId, @RequestBody AbstractPlan plan, @PathVariable Long ownerId) {
+        // TODO Nel diagramma di sequenza la chiamata la fa con l'ID dell'esercente e non con l'esercente direttamente
+        return planManager.modifyAndSavePlan(planId, plan, shopkeeperManager.getShopKeeperFromId(ownerId));
     }
 
     @GetMapping("open-to-coalition")
