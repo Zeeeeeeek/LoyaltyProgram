@@ -1,6 +1,8 @@
 package com.dicygroup.loyaltyprogram;
 
+import com.dicygroup.loyaltyprogram.models.customer.Customer;
 import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
+import com.dicygroup.loyaltyprogram.registries.CustomerRegistry;
 import com.dicygroup.loyaltyprogram.registries.ShopkeeperRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Component;
 public class Runner implements CommandLineRunner {
 
     private final ShopkeeperRegistry shopkeeperRegistry;
+    private final CustomerRegistry customerRegistry;
     @Override
     public void run(String... args) {
         shopkeeperRegistry.save(
@@ -24,6 +27,9 @@ public class Runner implements CommandLineRunner {
         );
         shopkeeperRegistry.save(
                 new Shopkeeper("paperino", "paperone")
+        );
+        customerRegistry.save(
+                new Customer("pippo", "pluto", "073321934553")
         );
     }
 }

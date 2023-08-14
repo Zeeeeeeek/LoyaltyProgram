@@ -5,6 +5,7 @@ import com.dicygroup.loyaltyprogram.managers.PrizeManager;
 import com.dicygroup.loyaltyprogram.managers.SubscriptionManager;
 import com.dicygroup.loyaltyprogram.models.customer.Customer;
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
+import com.dicygroup.loyaltyprogram.models.subscription.Subscription;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,13 +30,8 @@ public class CustomerInterface {
 
     // TODO: This method should get the customer Id from the one logged in
     @PostMapping("{customerId}/plans/{planId}")
-    public Customer subscribePlan(@PathVariable Long customerId, @PathVariable Long planId) {
-        return subscriptionManager.subscribeCustomerToPlan(getCustomerFromId(customerId), planId);
-    }
-
-    // TODO: Change when there will be a collection of customers
-    private Customer getCustomerFromId(Long id) {
-        return new Customer("Mario", "Rossi");
+    public Subscription subscribePlan(@PathVariable Long customerId, @PathVariable Long planId) {
+        return subscriptionManager.subscribeCustomerToPlan(planId, customerId);
     }
 
     @PostMapping("{customerId}/plans/{planId}/catalog")

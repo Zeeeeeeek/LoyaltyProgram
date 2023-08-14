@@ -66,12 +66,11 @@ public class PlanManager {
         return savePlan(planToModify);
     }
 
-    private Plan modifyPlan(AbstractPlan planToModify, AbstractPlan newDetailsPlan) {
+    private void modifyPlan(AbstractPlan planToModify, AbstractPlan newDetailsPlan) {
         planToModify.setCoalition(newDetailsPlan.getCoalition());
-        planToModify.setOwner(newDetailsPlan.getOwner());
         planToModify.setOpenToCoalition(newDetailsPlan.isOpenToCoalition());
         planToModify.setPointRule(newDetailsPlan.getPointRule());
-        return planToModify;
+        planToModify.setCatalog(newDetailsPlan.getCatalog());
     }
 
     public List<AbstractPlan> getOwnedPlans(Shopkeeper shopKeeperId) {

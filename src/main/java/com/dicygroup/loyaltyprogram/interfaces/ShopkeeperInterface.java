@@ -1,8 +1,11 @@
 package com.dicygroup.loyaltyprogram.interfaces;
 
 import com.dicygroup.loyaltyprogram.managers.CatalogueManager;
+import com.dicygroup.loyaltyprogram.managers.HiringEmployeeManager;
 import com.dicygroup.loyaltyprogram.managers.PlanManager;
 import com.dicygroup.loyaltyprogram.managers.ShopkeeperManager;
+import com.dicygroup.loyaltyprogram.models.employee.Employee;
+import com.dicygroup.loyaltyprogram.models.employee.EmployeeDTO;
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.dicygroup.loyaltyprogram.models.plans.Plan;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.Catalogue;
@@ -23,6 +26,8 @@ public class ShopkeeperInterface {
     private final PlanManager planManager;
     private final ShopkeeperManager shopkeeperManager;
     private final CatalogueManager catalogueManager;
+
+    private final HiringEmployeeManager hiringEmployeeManager;
 
     @GetMapping("plans")
     public Iterable<AbstractPlan> list() {
@@ -70,6 +75,11 @@ public class ShopkeeperInterface {
     @PostMapping("{shopkeeperId}/coalitions")
     public Plan addCoalition(@RequestBody Long planId, @PathVariable Long shopkeeperId) {
         return planManager.addCoalition(planId, shopkeeperManager.getShopKeeperFromId(shopkeeperId));
+    }
+
+    @PostMapping("{shopkeeperId}/employees")
+    public Employee addEmployee(@RequestBody EmployeeDTO employee, @PathVariable Long shopkeeperId) {
+        return hiringEmployeeManager.addEmployee(shopkeeperManager.getShopKeeperFromId(shopkeeperId), employee);
     }
 
 }
