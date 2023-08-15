@@ -7,6 +7,8 @@ import com.dicygroup.loyaltyprogram.models.customer.Customer;
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.dicygroup.loyaltyprogram.models.subscription.Subscription;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import com.dicygroup.loyaltyprogram.models.catalog.Catalog;
 @RestController
 @RequestMapping("/api/v1/customers/")
 @RequiredArgsConstructor
+@Slf4j
 public class CustomerInterface {
     private final PlanManager planManager;
     private final SubscriptionManager subscriptionManager;
@@ -42,5 +45,10 @@ public class CustomerInterface {
     @PostMapping("{customerId}/plans/{planId}/prizes/{prizeId}")
     public Boolean subtractPoints(@PathVariable Long customerId, @PathVariable Long planId, @PathVariable Long prizeId) {
         return prizeManager.getPrize(prizeId, planId, customerId);
+    }
+
+    @GetMapping("{customerId}/status/{planId}")
+    public Integer getCustomerStatus(@PathVariable Long customerId, @PathVariable Long planId) {
+        return subscriptionManager.getCustomerStatus(customerId, planId).getPoints();
     }
 }
