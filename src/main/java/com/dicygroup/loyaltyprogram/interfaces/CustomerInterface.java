@@ -44,11 +44,11 @@ public class CustomerInterface {
 
     @PostMapping("{customerId}/plans/{planId}/prizes/{prizeId}")
     public Boolean subtractPoints(@PathVariable Long customerId, @PathVariable Long planId, @PathVariable Long prizeId) {
-        return prizeManager.getPrize(prizeId, planId, customerId);
+        return prizeManager.pickUpPrize(prizeId, planId, customerId);
     }
 
     @GetMapping("{customerId}/status/{planId}")
     public Integer getCustomerStatus(@PathVariable Long customerId, @PathVariable Long planId) {
-        return subscriptionManager.getCustomerStatus(customerId, planId).getPoints();
+        return subscriptionManager.getCustomerStatus(customerId, planId);
     }
 }
