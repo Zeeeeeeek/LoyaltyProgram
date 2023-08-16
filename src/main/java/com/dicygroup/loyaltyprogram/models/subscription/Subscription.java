@@ -33,10 +33,6 @@ public class Subscription {
     @OneToOne(cascade = CascadeType.ALL)
     private AbstractPlan plan;
 
-    //@Getter
-    //@Setter
-    //private String dateSubscription;
-
     @Getter
     @Setter
     private int points;
