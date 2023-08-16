@@ -18,7 +18,7 @@ public class EmployeeInterface {
     private final PurchaseManager purchaseManager;
 
     @PostMapping("purchase/{customerId}/{planId}/{cost}")
-    public Boolean pushCase(@PathVariable Long customerId, @PathVariable Long planId, @PathVariable Double cost) {
+    public Boolean purchCase(@PathVariable Long customerId, @PathVariable Long planId, @PathVariable Double cost) {
         customersManager.getCustomerFromId(customerId);
         return purchaseManager.addPurchase(customerId, planId, cost);
     }
