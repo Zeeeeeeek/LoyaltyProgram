@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class EmployeeInterface {
 
-    private final HiringEmployeeManager hiringEmployeeManager;
     private final CustomersManager customersManager;
     private final PurchaseManager purchaseManager;
 
