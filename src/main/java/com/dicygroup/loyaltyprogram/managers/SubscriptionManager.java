@@ -6,7 +6,6 @@ import com.dicygroup.loyaltyprogram.models.subscription.Subscription;
 import com.dicygroup.loyaltyprogram.registries.AbstractPlanRegistry;
 import com.dicygroup.loyaltyprogram.registries.CustomerRegistry;
 import com.dicygroup.loyaltyprogram.registries.SubscriptionRegistry;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

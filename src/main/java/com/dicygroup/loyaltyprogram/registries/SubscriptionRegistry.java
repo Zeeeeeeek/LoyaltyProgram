@@ -1,12 +1,8 @@
 package com.dicygroup.loyaltyprogram.registries;
 
-import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
-import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
 import com.dicygroup.loyaltyprogram.models.subscription.Subscription;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 public interface SubscriptionRegistry extends CrudRepository<Subscription, Long> {
 

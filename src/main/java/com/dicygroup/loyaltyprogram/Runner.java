@@ -1,11 +1,7 @@
 package com.dicygroup.loyaltyprogram;
 
 import com.dicygroup.loyaltyprogram.models.customer.Customer;
-import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
-import com.dicygroup.loyaltyprogram.models.plans.PointsPlan;
-import com.dicygroup.loyaltyprogram.models.plans.rules.PointRule;
 import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
-import com.dicygroup.loyaltyprogram.models.subscription.Subscription;
 import com.dicygroup.loyaltyprogram.registries.AbstractPlanRegistry;
 import com.dicygroup.loyaltyprogram.registries.CustomerRegistry;
 import com.dicygroup.loyaltyprogram.registries.ShopkeeperRegistry;
@@ -19,7 +15,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 /**
- *
  * This class is used to populate the database with some default entities
  */
 public class Runner implements CommandLineRunner {
