@@ -1,6 +1,6 @@
 package com.dicygroup.loyaltyprogram.models.plans;
 
-import com.dicygroup.loyaltyprogram.models.catalog.Catalog;
+import com.dicygroup.loyaltyprogram.models.plans.catalogues.Catalogue;
 import com.dicygroup.loyaltyprogram.models.plans.rules.PointRule;
 import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
 import jakarta.persistence.CascadeType;
@@ -52,7 +52,7 @@ public abstract class AbstractPlan implements Plan {
     @Getter
     @Setter
     @OneToOne(cascade = CascadeType.ALL)
-    private Catalog catalog;
+    private Catalogue catalogue;
 
 
     protected AbstractPlan(PointRule pointRule, boolean isOpenToCoalition) {

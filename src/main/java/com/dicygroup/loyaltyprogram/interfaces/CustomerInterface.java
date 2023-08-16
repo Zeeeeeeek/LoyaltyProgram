@@ -1,10 +1,12 @@
 package com.dicygroup.loyaltyprogram.interfaces;
 
+import com.dicygroup.loyaltyprogram.managers.CatalogueManager;
 import com.dicygroup.loyaltyprogram.managers.PlanManager;
 import com.dicygroup.loyaltyprogram.managers.PrizeManager;
 import com.dicygroup.loyaltyprogram.managers.SubscriptionManager;
 import com.dicygroup.loyaltyprogram.models.customer.Customer;
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
+import com.dicygroup.loyaltyprogram.models.plans.catalogues.Catalogue;
 import com.dicygroup.loyaltyprogram.models.subscription.Subscription;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -15,16 +17,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dicygroup.loyaltyprogram.models.catalog.Catalog;
-
 @RestController
 @RequestMapping("/api/v1/customers/")
 @RequiredArgsConstructor
 @Slf4j
 public class CustomerInterface {
+
     private final PlanManager planManager;
     private final SubscriptionManager subscriptionManager;
     private final PrizeManager prizeManager;
+    private final CatalogueManager catalogueManager;
 
     @GetMapping("plans")
     public Iterable<AbstractPlan> list() {
@@ -38,8 +40,8 @@ public class CustomerInterface {
     }
 
     @PostMapping("{customerId}/plans/{planId}/catalog")
-    public Catalog getCatalog(@PathVariable Long planId, @PathVariable String customerId) {
-        return planManager.getCatalog(planId);
+    public Catalogue getCatalog(@PathVariable Long planId, @PathVariable String customerId) {
+        return catalogueManager.getCatalogue(planId);
     }
 
     @PostMapping("{customerId}/plans/{planId}/prizes/{prizeId}")

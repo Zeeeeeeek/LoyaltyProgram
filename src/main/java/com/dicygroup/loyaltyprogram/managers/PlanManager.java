@@ -2,13 +2,13 @@ package com.dicygroup.loyaltyprogram.managers;
 
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.dicygroup.loyaltyprogram.models.plans.Plan;
+import com.dicygroup.loyaltyprogram.models.plans.catalogues.Catalogue;
 import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
 import com.dicygroup.loyaltyprogram.registries.AbstractPlanRegistry;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import com.dicygroup.loyaltyprogram.models.catalog.Catalog;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
@@ -50,8 +50,8 @@ public class PlanManager {
         return savePlan(plan);
     }
 
-    public Catalog getCatalog(Long planId) {
-        return getPlanById(planId).getCatalog();
+    public Catalogue getCatalog(Long planId) {
+        return getPlanById(planId).getCatalogue();
     }
 
     public Plan modifyAndSavePlan(Long planId, AbstractPlan plan, Shopkeeper shopKeeperFromId) {
@@ -70,7 +70,7 @@ public class PlanManager {
         planToModify.setCoalition(newDetailsPlan.getCoalition());
         planToModify.setOpenToCoalition(newDetailsPlan.isOpenToCoalition());
         planToModify.setPointRule(newDetailsPlan.getPointRule());
-        planToModify.setCatalog(newDetailsPlan.getCatalog());
+        planToModify.setCatalogue(newDetailsPlan.getCatalogue());
     }
 
     public List<AbstractPlan> getOwnedPlans(Shopkeeper shopKeeperId) {
