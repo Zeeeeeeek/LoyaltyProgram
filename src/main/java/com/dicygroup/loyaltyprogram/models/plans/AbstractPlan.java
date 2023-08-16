@@ -1,6 +1,6 @@
 package com.dicygroup.loyaltyprogram.models.plans;
 
-import com.dicygroup.loyaltyprogram.models.catalog.Catalog;
+import com.dicygroup.loyaltyprogram.models.plans.catalogues.Catalogue;
 import com.dicygroup.loyaltyprogram.models.plans.rules.PointRule;
 import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
 import jakarta.persistence.CascadeType;
@@ -19,6 +19,8 @@ import lombok.ToString;
 
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @ToString
@@ -27,7 +29,6 @@ public abstract class AbstractPlan implements Plan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter
     private Long id;
 
     @Getter
@@ -51,7 +52,7 @@ public abstract class AbstractPlan implements Plan {
     @Getter
     @Setter
     @OneToOne(cascade = CascadeType.ALL)
-    private Catalog catalog;
+    private Catalogue catalogue;
 
 
     protected AbstractPlan(PointRule pointRule, boolean isOpenToCoalition) {
@@ -71,5 +72,10 @@ public abstract class AbstractPlan implements Plan {
     @Override
     public void setOpenToCoalition(boolean openToCoalition) {
         this.isOpenToCoalition = openToCoalition;
+    }
+
+    @Override
+    public void setRule(PointRule rule) {
+        this.pointRule = rule;
     }
 }

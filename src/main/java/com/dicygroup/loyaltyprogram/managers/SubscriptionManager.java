@@ -1,44 +1,62 @@
 package com.dicygroup.loyaltyprogram.managers;
 
 import com.dicygroup.loyaltyprogram.models.customer.Customer;
-import com.dicygroup.loyaltyprogram.models.plans.Plan;
+import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
+import com.dicygroup.loyaltyprogram.models.subscription.Subscription;
+import com.dicygroup.loyaltyprogram.registries.AbstractPlanRegistry;
+import com.dicygroup.loyaltyprogram.registries.CustomerRegistry;
+import com.dicygroup.loyaltyprogram.registries.SubscriptionRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class SubscriptionManager {
-    private final PlanManager planManager;
+    private final SubscriptionRegistry subscriptionRegistry;
+    private final CustomerRegistry customerRegistry;
+    private final AbstractPlanRegistry abstractPlanRegistry;
 
-    // TODO: Change with a collection of Subscriptions when "Subscription<Customer, Plan" Entity will be created
-    private final List<Pair<Customer, Long>> subscriptions;
-
-    public Customer subscribeCustomerToPlan(Customer customer, Long planId) {
-        return this.subscribeCustomer(customer, planId);
+    public Subscription subscribeCustomerToPlan(Long planId, Long customerId) {
+        return this.subscribeCustomer(planId, customerId);
     }
 
     // TODO: Change with a collection of Subscriptions when "Subscription" Entity will be created
-    private Customer subscribeCustomer(Customer customer, Long planId) {
-        return subscriptions.add(new Pair(customer, planId)) ? customer : null;
+    private Subscription subscribeCustomer(Long planId, Long customerId) {
+        Customer customer = customerRegistry
+                .findById(customerId)
+                .orElseThrow();
+        AbstractPlan plan = abstractPlanRegistry
+                .findById(planId)
+                .orElseThrow();
+
+        return subscriptionRegistry.save(new Subscription(customer, plan));
     }
 
     public Boolean subtractPoints(Long customerId, Long planId, Long prizeId) {
         return true;
     }
-}
 
-// TODO: Local class to represent a subscription, soon to be changed into a standalone entity
-class Pair<L, R> {
-    private L l;
-    private R r;
-    public Pair(L l, R r){
-        this.l = l;
-        this.r = r;
+
+    public Boolean setPoints(Long customerId, Long planId, Integer points) {
+        Subscription subscription = getSubscription(customerId, planId);
+
+        subscription.setPoints(points + subscription.getPoints());
+
+        try {
+            subscriptionRegistry.save(subscription);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
-    public L getL(){ return l; }
-    public R getR(){ return r; }
-    public void setL(L l){ this.l = l; }
-    public void setR(R r){ this.r = r; }
+
+    public Subscription getSubscription(Long customerId, Long planId) {
+        return subscriptionRegistry
+                .findByIds(customerId, planId);
+    }
+
+    public Integer getCustomerStatus (Long customerId, Long planId) {
+        return subscriptionRegistry
+                .findByIds(customerId, planId).getPoints();
+    }
 }

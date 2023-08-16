@@ -20,22 +20,25 @@ public class PointRule {
     private Long id;
 
     @Getter
-    private Double pointValueInCurrency;
+    private int pointValueInCurrency;
 
     @OneToOne(mappedBy = "pointRule")
     @Getter
     @JsonIgnore
     private AbstractPlan plan;
 
-    public PointRule(@NonNull Double pointValueInCurrency) {
-        requirePositiveValue(pointValueInCurrency);
+    public PointRule(int pointValueInCurrency) {
+        this.pointValueInCurrency = requirePositiveValue(pointValueInCurrency);
     }
 
     public Integer apply(@NonNull Double amount) {
-        return (int) (requirePositiveValue(amount) / pointValueInCurrency);
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Value must be non-negative");
+        }
+        return (int) (amount / pointValueInCurrency);
     }
 
-    private Double requirePositiveValue(Double value) {
+    private int requirePositiveValue(int value) {
         if (value <= 0) {
             throw new IllegalArgumentException("Value must be non-negative");
         }

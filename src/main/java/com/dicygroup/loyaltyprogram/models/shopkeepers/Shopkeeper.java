@@ -7,22 +7,21 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class Shopkeeper {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter
     private Long id;
 
-    @Getter
     private String name;
 
-    @Getter
     private String surname;
-
 
     public Shopkeeper(String name, String surname) {
         this.name = name;

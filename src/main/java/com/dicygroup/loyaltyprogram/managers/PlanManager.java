@@ -2,13 +2,13 @@ package com.dicygroup.loyaltyprogram.managers;
 
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.dicygroup.loyaltyprogram.models.plans.Plan;
+import com.dicygroup.loyaltyprogram.models.plans.catalogues.Catalogue;
 import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
 import com.dicygroup.loyaltyprogram.registries.AbstractPlanRegistry;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import com.dicygroup.loyaltyprogram.models.catalog.Catalog;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
@@ -50,8 +50,9 @@ public class PlanManager {
         return savePlan(plan);
     }
 
-    public Catalog getCatalog(Long planId) {
-        return getPlanById(planId).getCatalog();
+    public Catalogue getCatalogue(Long planId) {
+        return getPlanById(planId).getCatalogue();
+    }
 
     public Plan modifyAndSavePlan(Long planId, AbstractPlan plan, Shopkeeper shopKeeperFromId) {
         AbstractPlan planToModify = getPlanById(planId);
@@ -65,11 +66,15 @@ public class PlanManager {
         return savePlan(planToModify);
     }
 
-    private Plan modifyPlan(AbstractPlan planToModify, AbstractPlan newDetailsPlan) {
+    private void modifyPlan(AbstractPlan planToModify, AbstractPlan newDetailsPlan) {
         planToModify.setCoalition(newDetailsPlan.getCoalition());
-        planToModify.setOwner(newDetailsPlan.getOwner());
         planToModify.setOpenToCoalition(newDetailsPlan.isOpenToCoalition());
         planToModify.setPointRule(newDetailsPlan.getPointRule());
-        return planToModify;
+        planToModify.setCatalogue(newDetailsPlan.getCatalogue());
+    }
+
+    public List<AbstractPlan> getOwnedPlans(Shopkeeper shopKeeperId) {
+        return abstractPlanRegistry
+                .findByOwnerId(shopKeeperId);
     }
 }
