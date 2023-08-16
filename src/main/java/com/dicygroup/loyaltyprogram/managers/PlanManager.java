@@ -50,7 +50,7 @@ public class PlanManager {
         return savePlan(plan);
     }
 
-    public Catalogue getCatalog(Long planId) {
+    public Catalogue getCatalogue(Long planId) {
         return getPlanById(planId).getCatalogue();
     }
 
