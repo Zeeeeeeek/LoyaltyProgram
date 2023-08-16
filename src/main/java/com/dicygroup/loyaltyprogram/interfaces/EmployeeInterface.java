@@ -17,10 +17,10 @@ public class EmployeeInterface {
     private final CustomersManager customersManager;
     private final PurchaseManager purchaseManager;
 
-    @PostMapping("purchase")
-    public Boolean pushCase(@RequestHeader Long customerId, @RequestHeader Long planId, @RequestHeader Double prize) {
+    @PostMapping("purchase/{customerId}/{planId}/{cost}")
+    public Boolean pushCase(@PathVariable Long customerId, @PathVariable Long planId, @PathVariable Double cost) {
         customersManager.getCustomerFromId(customerId);
-        return purchaseManager.addPurchase(customerId, planId, prize);
+        return purchaseManager.addPurchase(customerId, planId, cost);
     }
 
 }
