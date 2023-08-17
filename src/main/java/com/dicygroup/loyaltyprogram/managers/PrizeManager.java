@@ -1,6 +1,10 @@
 package com.dicygroup.loyaltyprogram.managers;
 
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.Prize;
+import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.Cost;
+import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.LevelCost;
+import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.PointCost;
+import com.dicygroup.loyaltyprogram.models.subscription.Subscription;
 import com.dicygroup.loyaltyprogram.registries.PrizeRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,16 +19,33 @@ public class PrizeManager {
 
     public Boolean pickUpPrize(Long prizeId, Long planId, Long customerId) {
         int actualPoint = subscriptionManager.getCustomerStatus(customerId, planId);
-        int prizeCost = getPrize(prizeId).getCost().getRequiredPoints();
+        Cost prizeCost = getPrize(prizeId).getCost();
 
 
-        if (actualPoint >= prizeCost) {
-            Integer newPoints = actualPoint - prizeCost;
-            subscriptionManager.setPoints(customerId, planId, newPoints);
-            return true;
+        if (prizeCost instanceof LevelCost){
+            if(actualPoint >= ((LevelCost) prizeCost).getRequiredLevel()){
+                if (actualPoint >= prizeCost.getRequiredPoints()) {
+                    return removePoints(actualPoint, prizeCost.getRequiredPoints(), customerId, planId);
+
+                }else throw new RuntimeException("Not enough points");
+
+            }else throw new RuntimeException("Not enough points");
+
+        } else if (prizeCost instanceof PointCost) {
+            if(actualPoint >= prizeCost.getRequiredPoints()){
+                return removePoints(actualPoint, prizeCost.getRequiredPoints(), customerId, planId);
+
+            }else throw new RuntimeException("Not enough points");
         }
 
         return false;
+    }
+
+    private Boolean removePoints(Integer actualPoint, Integer prizeCost, Long customerId, Long planId){
+        Integer newPoints = actualPoint - prizeCost;
+        subscriptionManager.setPoints(customerId, planId, newPoints);
+        return true;
+
     }
 
     public Prize getPrize(Long prizeId) {
