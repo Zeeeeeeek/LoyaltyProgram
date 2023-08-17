@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class SubscriptionManager {
+
     private final SubscriptionRegistry subscriptionRegistry;
     private final CustomerRegistry customerRegistry;
     private final AbstractPlanRegistry abstractPlanRegistry;
@@ -20,7 +21,6 @@ public class SubscriptionManager {
         return this.subscribeCustomer(planId, customerId);
     }
 
-    // TODO: Change with a collection of Subscriptions when "Subscription" Entity will be created
     private Subscription subscribeCustomer(Long planId, Long customerId) {
         Customer customer = customerRegistry
                 .findById(customerId)
@@ -28,19 +28,14 @@ public class SubscriptionManager {
         AbstractPlan plan = abstractPlanRegistry
                 .findById(planId)
                 .orElseThrow();
-
         return subscriptionRegistry.save(new Subscription(customer, plan));
     }
 
-    public Boolean subtractPoints(Long customerId, Long planId, Long prizeId) {
-        return true;
-    }
 
 
     public Boolean setPoints(Long customerId, Long planId, Integer points) {
         Subscription subscription = getSubscription(customerId, planId);
         subscription.setPoints(points);
-
         try {
             subscriptionRegistry.save(subscription);
         } catch (Exception e) {
