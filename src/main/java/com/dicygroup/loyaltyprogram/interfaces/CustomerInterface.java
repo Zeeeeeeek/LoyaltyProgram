@@ -31,7 +31,6 @@ public class CustomerInterface {
         return planManager.getPlanList();
     }
 
-    // TODO: This method should get the customer Id from the one logged in
     @PostMapping("{customerId}/plans/{planId}")
     public Subscription subscribePlan(@PathVariable Long customerId, @PathVariable Long planId) {
         return subscriptionManager.subscribeCustomerToPlan(planId, customerId);
