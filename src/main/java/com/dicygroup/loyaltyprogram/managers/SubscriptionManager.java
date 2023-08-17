@@ -50,7 +50,6 @@ public class SubscriptionManager {
     }
 
     public Integer getCustomerStatus (Long customerId, Long planId) {
-        return subscriptionRegistry
-                .findByIds(customerId, planId).getPoints();
+        return getSubscription(customerId, planId).getPoints();
     }
 }
