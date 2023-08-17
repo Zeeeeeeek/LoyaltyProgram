@@ -66,10 +66,8 @@ public class PlanManager {
     }
 
     private void modifyPlan(AbstractPlan planToModify, AbstractPlan newDetailsPlan) {
-        planToModify.setCoalition(newDetailsPlan.getCoalition());
         planToModify.setOpenToCoalition(newDetailsPlan.isOpenToCoalition());
         planToModify.setPointRule(newDetailsPlan.getPointRule());
-        planToModify.setCatalogue(newDetailsPlan.getCatalogue());
         if(newDetailsPlan instanceof LevelsPlan levelsPlan && planToModify instanceof LevelsPlan levelsPlanToModify) {
             levelsPlanToModify.setLevelNumber(levelsPlan.getLevelNumber());
             levelsPlanToModify.setPointsPerLevel(levelsPlan.getPointsPerLevel());
