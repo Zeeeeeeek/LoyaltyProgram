@@ -1,6 +1,7 @@
 package com.dicygroup.loyaltyprogram.managers;
 
 import com.dicygroup.loyaltyprogram.models.plans.Plan;
+import com.dicygroup.loyaltyprogram.models.subscription.Subscription;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,12 @@ public class PurchaseManager {
         Plan plan = planManager.getPlanById(planId);
 
         Integer point = plan.getPointRule().apply(price);
-        return subscriptionManager.setPoints(customerId, planId, point);
+
+        Subscription subscription = subscriptionManager.getSubscription(customerId, planId);
+        Integer newPoint = point + subscription.getPoints();
+
+
+        return subscriptionManager.setPoints(customerId, planId, newPoint);
     }
 
 }

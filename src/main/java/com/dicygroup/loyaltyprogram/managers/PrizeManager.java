@@ -3,10 +3,12 @@ package com.dicygroup.loyaltyprogram.managers;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.Prize;
 import com.dicygroup.loyaltyprogram.registries.PrizeRegistry;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PrizeManager {
     private final SubscriptionManager subscriptionManager;
     private final PrizeRegistry prizeRegistry;

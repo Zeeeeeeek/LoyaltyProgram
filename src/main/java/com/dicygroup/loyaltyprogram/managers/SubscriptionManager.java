@@ -39,8 +39,7 @@ public class SubscriptionManager {
 
     public Boolean setPoints(Long customerId, Long planId, Integer points) {
         Subscription subscription = getSubscription(customerId, planId);
-
-        subscription.setPoints(points + subscription.getPoints());
+        subscription.setPoints(points);
 
         try {
             subscriptionRegistry.save(subscription);
