@@ -1,6 +1,7 @@
 package com.dicygroup.loyaltyprogram.managers;
 
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
+import com.dicygroup.loyaltyprogram.models.plans.LevelsPlan;
 import com.dicygroup.loyaltyprogram.models.plans.Plan;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.Catalogue;
 import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
@@ -61,8 +62,6 @@ public class PlanManager {
             throw new IllegalArgumentException("The plan you are trying to modify is not yours");
 
         modifyPlan(planToModify, plan);
-
-        // TODO Questo metodo salva tutto?
         return savePlan(planToModify);
     }
 
@@ -71,6 +70,10 @@ public class PlanManager {
         planToModify.setOpenToCoalition(newDetailsPlan.isOpenToCoalition());
         planToModify.setPointRule(newDetailsPlan.getPointRule());
         planToModify.setCatalogue(newDetailsPlan.getCatalogue());
+        if(newDetailsPlan instanceof LevelsPlan levelsPlan && planToModify instanceof LevelsPlan levelsPlanToModify) {
+            levelsPlanToModify.setLevelNumber(levelsPlan.getLevelNumber());
+            levelsPlanToModify.setPointsPerLevel(levelsPlan.getPointsPerLevel());
+        }
     }
 
     public List<AbstractPlan> getOwnedPlans(Shopkeeper shopKeeperId) {
