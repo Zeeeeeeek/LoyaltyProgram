@@ -6,6 +6,7 @@ import com.dicygroup.loyaltyprogram.models.subscription.Subscription;
 import com.dicygroup.loyaltyprogram.registries.AbstractPlanRegistry;
 import com.dicygroup.loyaltyprogram.registries.CustomerRegistry;
 import com.dicygroup.loyaltyprogram.registries.SubscriptionRegistry;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +52,10 @@ public class SubscriptionManager {
 
     public Integer getCustomerStatus (Long customerId, Long planId) {
         return getSubscription(customerId, planId).getPoints();
+    }
+
+    @Transactional
+    public void deleteSubscriptionsByPlanId(Long planId) {
+        subscriptionRegistry.deleteByPlanId(planId);
     }
 }

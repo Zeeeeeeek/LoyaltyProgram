@@ -13,6 +13,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,7 +60,7 @@ public class ShopkeeperInterface {
 
     @PostMapping("{ownerId}/plans/{planId}/catalogue")
     public boolean addCatalogue(@PathVariable Long planId, @PathVariable Long ownerId, @RequestBody Catalogue catalogue) {
-        return catalogueManager.createCatalogue(planId, catalogue);
+        return catalogueManager.createCatalogue(planManager.getPlanById(planId), catalogue);
     }
 
     @GetMapping("{ownerId}/plans/{planId}/catalogue")
@@ -86,6 +87,11 @@ public class ShopkeeperInterface {
     @PostMapping("{shopkeeperId}/employees")
     public Employee addEmployee(@RequestBody EmployeeDTO employee, @PathVariable Long shopkeeperId) {
         return hiringEmployeeManager.addEmployee(shopkeeperManager.getShopKeeperFromId(shopkeeperId), employee);
+    }
+
+    @DeleteMapping("{ownerId}/plans/{planId}")
+    public Plan deletePlan(@PathVariable Long planId, @PathVariable Long ownerId) {
+        return planManager.deletePlan(planId);
     }
 
 }

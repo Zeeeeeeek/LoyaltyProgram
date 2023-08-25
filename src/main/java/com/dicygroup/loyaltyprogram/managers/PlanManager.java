@@ -18,6 +18,8 @@ import java.util.stream.StreamSupport;
 public class PlanManager {
 
     private final AbstractPlanRegistry abstractPlanRegistry;
+    private final SubscriptionManager subscriptionManager;
+    private final CatalogueManager catalogueManager;
 
     public Plan savePlan(AbstractPlan plan) {
         return abstractPlanRegistry.save(plan);
@@ -77,5 +79,13 @@ public class PlanManager {
     public List<AbstractPlan> getOwnedPlans(Shopkeeper shopKeeperId) {
         return abstractPlanRegistry
                 .findByOwnerId(shopKeeperId);
+    }
+
+    public Plan deletePlan(Long planId) {
+        AbstractPlan plan = getPlanById(planId);
+        subscriptionManager.deleteSubscriptionsByPlanId(planId);
+        catalogueManager.deleteCatalogueByPlanId(planId);
+        abstractPlanRegistry.delete(plan);
+        return plan;
     }
 }

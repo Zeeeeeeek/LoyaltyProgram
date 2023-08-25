@@ -6,6 +6,7 @@ import com.dicygroup.loyaltyprogram.models.plans.catalogues.Prize;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.Cost;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.LevelCost;
 import com.dicygroup.loyaltyprogram.registries.PrizeRegistry;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,10 @@ public class PrizeManager {
 
     public Prize getPrize(Long prizeId) {
         return prizeRegistry.findById(prizeId).orElseThrow();
+    }
+
+    @Transactional
+    public void deletePrizesByCatalogueId(Long id) {
+        prizeRegistry.deleteAllByCatalogueId(id);
     }
 }

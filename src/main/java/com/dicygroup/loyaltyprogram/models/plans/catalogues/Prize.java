@@ -27,6 +27,11 @@ public class Prize {
     @Getter
     @Setter
     @OneToOne(cascade = CascadeType.ALL)
+    private Catalogue catalogue;
+
+    @Getter
+    @Setter
+    @OneToOne(cascade = CascadeType.ALL)
     private Cost cost;
 
     public Prize(String name, Cost cost) {

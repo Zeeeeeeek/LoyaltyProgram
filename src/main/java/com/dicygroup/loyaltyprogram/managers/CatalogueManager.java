@@ -8,6 +8,7 @@ import com.dicygroup.loyaltyprogram.models.plans.catalogues.Prize;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.LevelCost;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.PointCost;
 import com.dicygroup.loyaltyprogram.registries.CatalogueRegistry;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,16 +21,15 @@ import java.util.function.Predicate;
 @RequiredArgsConstructor
 public class CatalogueManager {
 
-    private final PlanManager planManager;
     private final CatalogueRegistry catalogueRegistry;
+    private final PrizeManager prizeManager;
 
-    public boolean createCatalogue(Long planId, Catalogue catalogue) {
-        AbstractPlan plan = planManager.getPlanById(planId);
+    public boolean createCatalogue(AbstractPlan plan, Catalogue catalogue) {
         catalogue.setPlan(plan);
         List<Prize> prizes = catalogue.getPrizes();
         if (prizesAreNotCompatibleWithPlanType(plan, prizes)) return false;
         try {
-            safeSave(catalogue, planId);
+            safeSave(catalogue, plan.getId());
             return true;
         } catch (Exception e) {
             log.error("Error while saving catalogue", e);
@@ -60,5 +60,13 @@ public class CatalogueManager {
 
     public Catalogue getCatalogue(Long planId) {
         return catalogueRegistry.findByPlanId(planId);
+    }
+
+    @Transactional
+    public void deleteCatalogueByPlanId(Long planId) {
+        Catalogue catalogue = catalogueRegistry.findByPlanId(planId);
+        if(catalogue == null) return;
+        prizeManager.deletePrizesByCatalogueId(catalogue.getId());
+        catalogueRegistry.deleteByPlanId(planId);
     }
 }
