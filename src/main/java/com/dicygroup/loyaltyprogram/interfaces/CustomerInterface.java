@@ -43,7 +43,7 @@ public class CustomerInterface {
 
     @PostMapping("{customerId}/plans/{planId}/prizes/{prizeId}")
     public Boolean subtractPoints(@PathVariable Long customerId, @PathVariable Long planId, @PathVariable Long prizeId) {
-        return prizeManager.pickUpPrize(prizeId, planId, customerId);
+        return prizeManager.pickUpPrize(prizeId, planManager.getPlanById(planId), customerId);
     }
 
     @GetMapping("{customerId}/status/{planId}")

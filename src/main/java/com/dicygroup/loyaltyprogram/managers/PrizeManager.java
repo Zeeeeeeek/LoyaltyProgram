@@ -17,20 +17,17 @@ public class PrizeManager {
 
     private final SubscriptionManager subscriptionManager;
     private final PrizeRegistry prizeRegistry;
-    private final PlanManager planManager;
 
-    public Boolean pickUpPrize(Long prizeId, Long planId, Long customerId) {
-        int actualPoint = subscriptionManager.getCustomerStatus(customerId, planId);
+    public Boolean pickUpPrize(Long prizeId, AbstractPlan plan, Long customerId) {
+        int actualPoint = subscriptionManager.getCustomerStatus(customerId, plan.getId());
         Cost prizeCost = getPrize(prizeId).getCost();
-        if (prizeCost instanceof LevelCost levelCost) {
-            AbstractPlan plan = planManager.getPlanById(planId);
-            if (plan instanceof LevelsPlan levelsPlan && (levelsPlan.evalLevel(actualPoint) < levelCost.getRequiredLevel())) {
+        if (prizeCost instanceof LevelCost levelCost &&
+                (plan instanceof LevelsPlan levelsPlan && (levelsPlan.evalLevel(actualPoint) < levelCost.getRequiredLevel()))) {
                 return false;
-            }
         }
         if (actualPoint < prizeCost.getRequiredPoints())
             return false;
-        return removePoints(actualPoint, prizeCost.getRequiredPoints(), customerId, planId);
+        return removePoints(actualPoint, prizeCost.getRequiredPoints(), customerId, plan.getId());
     }
 
     private Boolean removePoints(Integer actualPoint, Integer prizeCost, Long customerId, Long planId) {
