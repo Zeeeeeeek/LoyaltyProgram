@@ -12,6 +12,4 @@ public interface AbstractPlanRegistry extends CrudRepository<AbstractPlan, Long>
     @Query("SELECT p FROM AbstractPlan p WHERE p.owner = ?1")
     List<AbstractPlan> findByOwnerId(Shopkeeper shopKeeperId);
 
-
-
 }
