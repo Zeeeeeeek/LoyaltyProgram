@@ -22,6 +22,7 @@ import java.util.List;
 public class Catalogue {
 
     @Id
+    @Getter
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
