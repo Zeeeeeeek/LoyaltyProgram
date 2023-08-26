@@ -70,7 +70,6 @@ public class ShopkeeperInterface {
 
     @PutMapping("{ownerId}/plans/{planId}")
     public Plan modify(@PathVariable Long planId, @RequestBody AbstractPlan plan, @PathVariable Long ownerId) {
-        // TODO Nel diagramma di sequenza la chiamata la fa con l'ID dell'esercente e non con l'esercente direttamente
         return planManager.modifyAndSavePlan(planId, plan, shopkeeperManager.getShopKeeperFromId(ownerId));
     }
 
