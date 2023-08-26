@@ -8,7 +8,6 @@ import com.dicygroup.loyaltyprogram.models.plans.catalogues.Prize;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.LevelCost;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.PointCost;
 import com.dicygroup.loyaltyprogram.registries.CatalogueRegistry;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,6 @@ import java.util.function.Predicate;
 public class CatalogueManager {
 
     private final CatalogueRegistry catalogueRegistry;
-    private final PrizeManager prizeManager;
 
     public boolean createCatalogue(AbstractPlan plan, Catalogue catalogue) {
         catalogue.setPlan(plan);
@@ -62,11 +60,9 @@ public class CatalogueManager {
         return catalogueRegistry.findByPlanId(planId);
     }
 
-    @Transactional
     public void deleteCatalogueByPlanId(Long planId) {
         Catalogue catalogue = catalogueRegistry.findByPlanId(planId);
         if(catalogue == null) return;
-        prizeManager.deletePrizesByCatalogueId(catalogue.getId());
         catalogueRegistry.deleteByPlanId(planId);
     }
 }

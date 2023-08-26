@@ -1,14 +1,17 @@
 package com.dicygroup.loyaltyprogram.models.plans.catalogues.costs;
 
+import com.dicygroup.loyaltyprogram.models.plans.catalogues.Prize;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +35,9 @@ public abstract class Cost {
     @JsonProperty("requiredPoints")
     @Getter
     private int requiredPoints;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private Prize prize;
     
     protected Cost(int requiredPoints) {
         setRequiredPoints(requiredPoints);

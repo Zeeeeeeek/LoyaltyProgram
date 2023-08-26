@@ -39,8 +39,4 @@ public class PrizeManager {
         return prizeRegistry.findById(prizeId).orElseThrow();
     }
 
-    @Transactional
-    public void deletePrizesByCatalogueId(Long id) {
-        prizeRegistry.deleteAllByCatalogueId(id);
-    }
 }
