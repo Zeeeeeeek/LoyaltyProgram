@@ -59,6 +59,7 @@ public abstract class AbstractPlan implements Plan {
 
     @Override
     public void addCoalition(Shopkeeper shopkeeper) {
+        if(shopkeeper.equals(owner) || coalition.contains(shopkeeper)) return;
         coalition.add(shopkeeper);
     }
 
