@@ -59,10 +59,8 @@ public class PlanManager {
 
     public Plan modifyAndSavePlan(Long planId, AbstractPlan plan, Shopkeeper shopKeeperFromId) {
         AbstractPlan planToModify = getPlanById(planId);
-
         if (planToModify.getOwner() != shopKeeperFromId)
             throw new IllegalArgumentException("The plan you are trying to modify is not yours");
-
         modifyPlan(planToModify, plan);
         return savePlan(planToModify);
     }
@@ -88,4 +86,5 @@ public class PlanManager {
         abstractPlanRegistry.delete(plan);
         return plan;
     }
+
 }
