@@ -90,7 +90,7 @@ public class ShopkeeperInterface {
     }
 
     @DeleteMapping("{ownerId}/plans/{planId}")
-    public Plan deletePlan(@PathVariable Long planId, @PathVariable Long ownerId) {
+    public AbstractPlan deletePlan(@PathVariable Long planId, @PathVariable Long ownerId) {
         return planManager.deletePlan(planId);
     }
 

@@ -81,7 +81,7 @@ public class PlanManager {
                 .findByOwnerId(shopKeeperId);
     }
 
-    public Plan deletePlan(Long planId) {
+    public AbstractPlan deletePlan(Long planId) {
         AbstractPlan plan = getPlanById(planId);
         subscriptionManager.deleteSubscriptionsByPlanId(planId);
         catalogueManager.deleteCatalogueByPlanId(planId);
