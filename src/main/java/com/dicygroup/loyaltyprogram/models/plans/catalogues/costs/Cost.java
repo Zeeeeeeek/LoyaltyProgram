@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 public abstract class Cost {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     private Long id;
 
