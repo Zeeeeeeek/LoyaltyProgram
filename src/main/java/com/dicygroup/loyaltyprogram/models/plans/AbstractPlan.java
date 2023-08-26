@@ -28,30 +28,21 @@ import java.util.List;
 public abstract class AbstractPlan implements Plan {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter
-    @Setter
     @OneToOne
     private Shopkeeper owner;
 
-    @Getter
-    @Setter
     @OneToOne(cascade = CascadeType.ALL)
     private PointRule pointRule;
 
-    @Getter
     private boolean isOpenToCoalition;
 
-    @Getter
-    @Setter
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private List<Shopkeeper> coalition;
 
-    @Getter
-    @Setter
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Catalogue catalogue;
 
 
