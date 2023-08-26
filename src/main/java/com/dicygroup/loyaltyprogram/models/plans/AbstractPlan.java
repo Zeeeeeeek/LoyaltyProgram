@@ -16,6 +16,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
@@ -39,7 +41,7 @@ public abstract class AbstractPlan implements Plan {
 
     private boolean isOpenToCoalition;
 
-    @OneToMany
+    @OneToMany @Fetch(FetchMode.JOIN)
     private List<Shopkeeper> coalition;
 
     @OneToOne(cascade = CascadeType.REMOVE)
