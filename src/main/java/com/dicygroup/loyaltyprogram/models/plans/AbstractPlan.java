@@ -18,6 +18,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -36,7 +38,7 @@ public abstract class AbstractPlan implements Plan {
     @OneToOne
     private Shopkeeper owner;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private PointRule pointRule;
 
     private boolean isOpenToCoalition;
@@ -44,7 +46,8 @@ public abstract class AbstractPlan implements Plan {
     @OneToMany @Fetch(FetchMode.JOIN)
     private List<Shopkeeper> coalition;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = {CascadeType.DETACH})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Catalogue catalogue;
 
 

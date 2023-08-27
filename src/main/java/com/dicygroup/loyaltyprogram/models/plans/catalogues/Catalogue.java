@@ -2,7 +2,6 @@ package com.dicygroup.loyaltyprogram.models.plans.catalogues;
 
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -31,7 +32,8 @@ public class Catalogue {
     private String name;
 
     @Getter
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "catalogue")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Prize> prizes;
 
     @OneToOne

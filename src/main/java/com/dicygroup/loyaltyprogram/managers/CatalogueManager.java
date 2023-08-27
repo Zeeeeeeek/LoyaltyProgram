@@ -2,12 +2,14 @@ package com.dicygroup.loyaltyprogram.managers;
 
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.dicygroup.loyaltyprogram.models.plans.LevelsPlan;
+import com.dicygroup.loyaltyprogram.models.plans.Plan;
 import com.dicygroup.loyaltyprogram.models.plans.PointsPlan;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.Catalogue;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.Prize;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.LevelCost;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.PointCost;
 import com.dicygroup.loyaltyprogram.registries.CatalogueRegistry;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,24 +23,21 @@ import java.util.function.Predicate;
 public class CatalogueManager {
 
     private final CatalogueRegistry catalogueRegistry;
+    private final PrizeManager prizeManager;
 
-    public boolean createCatalogue(AbstractPlan plan, Catalogue catalogue) {
+    public Catalogue createCatalogue(AbstractPlan plan, Catalogue catalogue) {
         catalogue.setPlan(plan);
         List<Prize> prizes = catalogue.getPrizes();
-        if (prizesAreNotCompatibleWithPlanType(plan, prizes)) return false;
-        try {
-            safeSave(catalogue, plan.getId());
-            return true;
-        } catch (Exception e) {
-            log.error("Error while saving catalogue", e);
-            return false;
-        }
+        if (prizesAreNotCompatibleWithPlanType(plan, prizes)) throw new IllegalArgumentException("Prizes are not compatible with plan type");
+        return safeSave(catalogue, plan.getId());
     }
 
-    private void safeSave(Catalogue catalogue, Long planId) {
+    private Catalogue safeSave(Catalogue catalogue, Long planId) {
         if (catalogueRegistry.findByPlanId(planId) != null)
             catalogueRegistry.delete(catalogueRegistry.findByPlanId(planId));
-        catalogueRegistry.save(catalogue);
+        Catalogue savedCatalogue = catalogueRegistry.save(catalogue);
+        prizeManager.saveAll(savedCatalogue, catalogue.getPrizes());
+        return savedCatalogue;
     }
 
     private boolean prizesAreNotCompatibleWithPlanType(AbstractPlan plan, List<Prize> prizes) {
@@ -60,9 +59,11 @@ public class CatalogueManager {
         return catalogueRegistry.findByPlanId(planId);
     }
 
+    @Transactional
     public void deleteCatalogueByPlanId(Long planId) {
         Catalogue catalogue = catalogueRegistry.findByPlanId(planId);
         if(catalogue == null) return;
-        catalogueRegistry.deleteByPlanId(planId);
+        prizeManager.deleteAllByCatalogueId(catalogue.getId());
+        //catalogueRegistry.deleteByPlanId(planId);
     }
 }

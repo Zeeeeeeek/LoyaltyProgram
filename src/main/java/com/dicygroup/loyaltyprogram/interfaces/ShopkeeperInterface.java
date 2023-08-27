@@ -60,7 +60,17 @@ public class ShopkeeperInterface {
 
     @PostMapping("{ownerId}/plans/{planId}/catalogue")
     public boolean addCatalogue(@PathVariable Long planId, @PathVariable Long ownerId, @RequestBody Catalogue catalogue) {
-        return catalogueManager.createCatalogue(planManager.getPlanById(planId), catalogue);
+        try {
+            AbstractPlan plan = planManager.getPlanById(planId);
+            plan.setCatalogue(catalogueManager.createCatalogue(planManager.getPlanById(planId), catalogue));
+            planManager.savePlan(plan);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        } catch (Exception e) {
+            log.error("Error while adding catalogue", e);
+            return false;
+        }
     }
 
     @GetMapping("{ownerId}/plans/{planId}/catalogue")

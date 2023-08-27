@@ -7,7 +7,9 @@ import com.dicygroup.loyaltyprogram.models.plans.catalogues.Catalogue;
 import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
 import com.dicygroup.loyaltyprogram.registries.AbstractPlanRegistry;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PlanManager {
 
     private final AbstractPlanRegistry abstractPlanRegistry;
@@ -79,11 +82,12 @@ public class PlanManager {
                 .findByOwnerId(shopKeeperId);
     }
 
+    //@Transactional
     public AbstractPlan deletePlan(Long planId) {
         AbstractPlan plan = getPlanById(planId);
-        subscriptionManager.deleteSubscriptionsByPlanId(planId);
+        plan.setCatalogue(null);
+        abstractPlanRegistry.save(plan);
         catalogueManager.deleteCatalogueByPlanId(planId);
-        abstractPlanRegistry.delete(plan);
         return plan;
     }
 
