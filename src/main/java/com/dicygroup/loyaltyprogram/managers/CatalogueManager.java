@@ -2,6 +2,7 @@ package com.dicygroup.loyaltyprogram.managers;
 
 import com.dicygroup.loyaltyprogram.models.plans.AbstractPlan;
 import com.dicygroup.loyaltyprogram.models.plans.LevelsPlan;
+import com.dicygroup.loyaltyprogram.models.plans.Plan;
 import com.dicygroup.loyaltyprogram.models.plans.PointsPlan;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.Catalogue;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.Prize;
@@ -67,5 +68,11 @@ public class CatalogueManager {
 
     private void deletePrizesByCatalogueId(Long catalogueId) {
         prizeManager.deleteAllByCatalogueId(catalogueId);
+    }
+
+    public Boolean deleteCatalogue(Long catalogueId, AbstractPlan plan) {
+        plan.setCatalogue(null);
+        deletePrizesByCatalogueId(catalogueId);
+        return true;
     }
 }

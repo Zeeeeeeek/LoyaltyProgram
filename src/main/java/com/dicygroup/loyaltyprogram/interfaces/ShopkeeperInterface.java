@@ -103,4 +103,9 @@ public class ShopkeeperInterface {
         return planManager.deletePlan(planId);
     }
 
+    @DeleteMapping("{ownerId}/catalogue/{catalogueId}")
+    public Boolean deleteCatalogue(@PathVariable Long catalogueId, @PathVariable Long ownerId) {
+        return catalogueManager.deleteCatalogue(catalogueId, catalogueManager.getCatalogue(catalogueId).getPlan());
+    }
+
 }
