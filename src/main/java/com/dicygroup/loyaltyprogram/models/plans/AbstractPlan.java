@@ -3,6 +3,7 @@ package com.dicygroup.loyaltyprogram.models.plans;
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.Catalogue;
 import com.dicygroup.loyaltyprogram.models.plans.rules.PointRule;
 import com.dicygroup.loyaltyprogram.models.shopkeepers.Shopkeeper;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,6 +48,7 @@ public abstract class AbstractPlan implements Plan {
     private List<Shopkeeper> coalition;
 
     @OneToOne
+    @JsonIgnore
     private Catalogue catalogue;
 
 

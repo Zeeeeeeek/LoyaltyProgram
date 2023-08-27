@@ -86,6 +86,7 @@ public class PlanManager {
         AbstractPlan plan = getPlanById(planId);
         plan.setCatalogue(null);
         catalogueManager.deleteCatalogueByPlanId(planId);
+        subscriptionManager.deleteSubscriptionsByPlanId(planId);
         abstractPlanRegistry.delete(plan);
         return plan;
     }
