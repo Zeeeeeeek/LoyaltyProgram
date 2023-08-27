@@ -46,8 +46,7 @@ public abstract class AbstractPlan implements Plan {
     @OneToMany @Fetch(FetchMode.JOIN)
     private List<Shopkeeper> coalition;
 
-    @OneToOne(cascade = {CascadeType.DETACH})
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne
     private Catalogue catalogue;
 
 

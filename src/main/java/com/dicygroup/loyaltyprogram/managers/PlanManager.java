@@ -82,12 +82,11 @@ public class PlanManager {
                 .findByOwnerId(shopKeeperId);
     }
 
-    //@Transactional
     public AbstractPlan deletePlan(Long planId) {
         AbstractPlan plan = getPlanById(planId);
         plan.setCatalogue(null);
-        abstractPlanRegistry.save(plan);
         catalogueManager.deleteCatalogueByPlanId(planId);
+        abstractPlanRegistry.delete(plan);
         return plan;
     }
 
