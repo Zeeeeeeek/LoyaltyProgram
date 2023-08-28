@@ -9,11 +9,7 @@ import com.dicygroup.loyaltyprogram.models.plans.catalogues.Catalogue;
 import com.dicygroup.loyaltyprogram.models.subscription.Subscription;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/customers/")
@@ -34,6 +30,11 @@ public class CustomerInterface {
     @PostMapping("{customerId}/plans/{planId}")
     public Subscription subscribePlan(@PathVariable Long customerId, @PathVariable Long planId) {
         return subscriptionManager.subscribeCustomerToPlan(planId, customerId);
+    }
+
+    @DeleteMapping("{customerId}/plans/{planId}")
+    public Boolean unsubscribePlan(@PathVariable Long customerId, @PathVariable Long planId) {
+        return subscriptionManager.unsubscribeCustomerFromPlan(planId, customerId);
     }
 
     @PostMapping("{customerId}/plans/{planId}/catalog")

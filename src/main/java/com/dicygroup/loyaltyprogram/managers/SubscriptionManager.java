@@ -32,8 +32,6 @@ public class SubscriptionManager {
         return subscriptionRegistry.save(new Subscription(customer, plan));
     }
 
-
-
     public Boolean setPoints(Long customerId, Long planId, Integer points) {
         Subscription subscription = getSubscription(customerId, planId);
         subscription.setPoints(points);
@@ -57,5 +55,15 @@ public class SubscriptionManager {
     @Transactional
     public void deleteSubscriptionsByPlanId(Long planId) {
         subscriptionRegistry.deleteByPlanId(planId);
+    }
+
+    public Boolean unsubscribeCustomerFromPlan(Long planId, Long customerId) {
+        Subscription subscription = getSubscription(customerId, planId);
+        try {
+            subscriptionRegistry.delete(subscription);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }
