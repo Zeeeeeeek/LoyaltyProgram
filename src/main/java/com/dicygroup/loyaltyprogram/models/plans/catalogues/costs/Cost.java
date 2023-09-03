@@ -1,6 +1,7 @@
 package com.dicygroup.loyaltyprogram.models.plans.catalogues.costs;
 
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.Prize;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -33,6 +34,7 @@ public abstract class Cost {
     @OneToOne
     @JoinColumn(name = "prize_id", referencedColumnName = "id")
     @Setter
+    @JsonIgnore
     private Prize prize;
     
     protected Cost(int requiredPoints) {

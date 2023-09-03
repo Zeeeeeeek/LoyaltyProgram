@@ -1,6 +1,7 @@
 package com.dicygroup.loyaltyprogram.models.plans.catalogues;
 
 import com.dicygroup.loyaltyprogram.models.plans.catalogues.costs.Cost;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class Prize {
     @Setter
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "catalogue_id")
+    @JsonIgnore
     private Catalogue catalogue;
 
     @Getter
