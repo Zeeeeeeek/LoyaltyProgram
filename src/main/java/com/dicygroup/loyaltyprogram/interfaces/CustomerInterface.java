@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/customers/")
 @RequiredArgsConstructor
@@ -35,6 +37,11 @@ public class CustomerInterface {
     @DeleteMapping("{customerId}/plans/{planId}")
     public Boolean unsubscribePlan(@PathVariable Long customerId, @PathVariable Long planId) {
         return subscriptionManager.unsubscribeCustomerFromPlan(planId, customerId);
+    }
+
+    @GetMapping("{customerId}/plans/")
+    public List<Subscription> getSubscriptions(@PathVariable Long customerId) {
+        return subscriptionManager.getSubscriptions(customerId);
     }
 
     @PostMapping("{customerId}/plans/{planId}/catalog")

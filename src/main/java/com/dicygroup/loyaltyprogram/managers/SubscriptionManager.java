@@ -10,6 +10,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class SubscriptionManager {
@@ -65,5 +67,9 @@ public class SubscriptionManager {
             return false;
         }
         return true;
+    }
+
+    public List<Subscription> getSubscriptions(Long customerId) {
+        return subscriptionRegistry.findByCustomerId(customerId);
     }
 }
