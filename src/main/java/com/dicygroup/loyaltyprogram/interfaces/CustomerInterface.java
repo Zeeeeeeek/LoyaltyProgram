@@ -44,8 +44,8 @@ public class CustomerInterface {
         return subscriptionManager.getSubscriptions(customerId);
     }
 
-    @PostMapping("{customerId}/plans/{planId}/catalog")
-    public Catalogue getCatalog(@PathVariable Long planId, @PathVariable String customerId) {
+    @GetMapping("plans/{planId}/catalogue")
+    public Catalogue getCatalogue(@PathVariable Long planId) {
         return catalogueManager.getCatalogue(planId);
     }
 
