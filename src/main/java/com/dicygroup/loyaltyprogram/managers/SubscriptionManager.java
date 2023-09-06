@@ -61,6 +61,11 @@ public class SubscriptionManager {
 
     public Boolean unsubscribeCustomerFromPlan(Long planId, Long customerId) {
         Subscription subscription = getSubscription(customerId, planId);
+        if (subscription == null) return false;
+
+        subscription.setSubscriber(null);
+        subscription.setPlan(null);
+
         try {
             subscriptionRegistry.delete(subscription);
         } catch (Exception e) {
